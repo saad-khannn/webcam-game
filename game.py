@@ -1,17 +1,27 @@
 import cv2
+import numpy as np
 
+proto = "models/deploy.prototxt.txt" 
+weights = "models/res10_300x300_ssd_iter_140000.caffemodel"
+
+net = cv2.dnn.readNetFromCaffe(proto, weights)
 cap = cv2.VideoCapture(0)
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 while True:
     ret, frame = cap.read()
     frame = cv2.flip(frame, 1)
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, 1.05, 5)
-    for(x,y,w,h) in faces:
-        cv2.rectangle(frame, (x,y), (x+w, y+h), (0,0,255), 3)
-        roi_gray = gray[y:y+w, x:x+w]
-        roi_color = frame[y:y+h, x:x+w]
+    h, w = frame.shape[:2]
+    blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0))
+    
+    net.setInput(blob)
+    faces = net.forward() 
+
+    for i in range(faces.shape[2]):
+            confidence = faces[0, 0, i, 2]
+            if confidence > 0.5:
+                box = faces[0, 0, i, 3:7] * np.array([w, h, w, h])
+                (x, y, x1, y1) = box.astype("int")
+                cv2.rectangle(frame, (x,y), (x1,y1), (0,0,255), 3)
 
     cv2.imshow('webcam', frame)
     if cv2.waitKey(1) == ord('q'):
