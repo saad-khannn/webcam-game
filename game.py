@@ -13,7 +13,8 @@ while True:
     ret, frame = cap.read() 
     frame = cv2.flip(frame, 1) 
     h, w = frame.shape[:2] 
-    
+    frame[0:40, 0:w] = (0,0,0)
+
     blob = cv2.dnn.blobFromImage(frame, 1.0, (300,300), (104.0,177.0,123.0))
     net.setInput(blob) 
     faces = net.forward() 
