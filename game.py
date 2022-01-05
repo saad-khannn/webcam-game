@@ -14,8 +14,8 @@ coordinates = False
 score = 0
 
 def circleHit(rectX1, rectY1, rectX2, rectY2, circleWidth, circleHeight):
-    width = range(circleWidth-30, circleWidth+30) 
-    height = range(circleHeight-30, circleHeight+30) 
+    width = range(circleWidth-25, circleWidth+25) 
+    height = range(circleHeight-25, circleHeight+25) 
     xRange = range(rectX1, rectX2) 
     yRange = range(rectY1, rectY2) 
     if( range(max(width[0],xRange[0]), min(width[-1],xRange[-1])) 
@@ -50,7 +50,7 @@ while True:
             randomWidth = randrange(30, w-30)
             randomHeight = randrange(70, h-30)
             coordinates = (randomWidth, randomHeight)
-        circle = cv2.circle(frame, coordinates, 30, (0,0,255), -1) 
+        circle = cv2.circle(frame, coordinates, 25, (0,0,255), -1) 
         if circleHit(x1, y1, x2, y2, coordinates[0], coordinates[1]):
             coordinates = False
             score += 1
