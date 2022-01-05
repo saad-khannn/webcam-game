@@ -8,9 +8,15 @@ weights = "models/res10_300x300_ssd_iter_140000.caffemodel"
 
 net = cv2.dnn.readNetFromCaffe(proto, weights) 
 cap = cv2.VideoCapture(0) 
-
 start = time.time() 
+
 coordinates = False
+
+def circleHit(rectX1, rectY1, rectX2, rectY2, circleWidth, circleHeight):
+    xRange = range(rectX1, rectX2) 
+    yRange = range(rectY1, rectY2) 
+    if((circleWidth in xRange) and (circleHeight in yRange)):
+        return True
 
 while True:
     ret, frame = cap.read()
@@ -26,12 +32,12 @@ while True:
         confidence = faces[0, 0, i, 2]
         if confidence > 0.5: 
             box = faces[0, 0, i, 3:7] * np.array([w, h, w, h])
-            (x,y,x1,y1) = box.astype("int")
-            face = cv2.rectangle(frame, (x,y), (x1,y1), (0,0,255), 3)
+            (x1, y1, x2, y2) = box.astype("int")
+            face = cv2.rectangle(frame, (x1, y1), (x2, y2), (0,0,255), 3)
 
     end = time.time() 
     elapsed = end - start 
-    timer = int(10 - elapsed) 
+    timer = int(60 - elapsed) 
     font = cv2.FONT_HERSHEY_SIMPLEX
     if timer > 0:
         cv2.putText(frame, 'Timer:' + str(timer), (5,30), font, 1, (255,255,255), 1, cv2.LINE_AA)
@@ -40,7 +46,9 @@ while True:
             randomWidth = randrange(30, w-30)
             randomHeight = randrange(70, h-30)
             coordinates = (randomWidth, randomHeight)
-        circle = cv2.circle(frame, coordinates, 30, (0,0,255), -1)
+        circle = cv2.circle(frame, coordinates, 30, (0,0,255), -1) 
+        if circleHit(x1, y1, x2, y2, coordinates[0], coordinates[1]):
+            cv2.putText(frame, 'HIT', (100,150), font, 3, (255,255,255), 2, cv2.LINE_AA)
     else:
         cv2.putText(frame, 'ROUND OVER', (5,30), 
         font, 1, (255,255,255), 2, cv2.LINE_AA)
