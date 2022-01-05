@@ -11,6 +11,7 @@ cap = cv2.VideoCapture(0)
 start = time.time() 
 
 coordinates = False
+score = 0 
 
 def circleHit(rectX1, rectY1, rectX2, rectY2, circleWidth, circleHeight):
     xRange = range(rectX1, rectX2) 
@@ -29,11 +30,11 @@ while True:
     faces = net.forward() 
 
     for i in range(faces.shape[2]):
-        confidence = faces[0, 0, i, 2]
-        if confidence > 0.5: 
-            box = faces[0, 0, i, 3:7] * np.array([w, h, w, h])
-            (x1, y1, x2, y2) = box.astype("int")
-            face = cv2.rectangle(frame, (x1, y1), (x2, y2), (0,0,255), 3)
+            confidence = faces[0, 0, i, 2]
+            if confidence > 0.5: 
+                box = faces[0, 0, i, 3:7] * np.array([w, h, w, h])
+                (x1, y1, x2, y2) = box.astype("int")
+                face = cv2.rectangle(frame, (x1, y1), (x2, y2), (0,0,255), 3)
 
     end = time.time() 
     elapsed = end - start 
@@ -48,12 +49,12 @@ while True:
             coordinates = (randomWidth, randomHeight)
         circle = cv2.circle(frame, coordinates, 30, (0,0,255), -1) 
         if circleHit(x1, y1, x2, y2, coordinates[0], coordinates[1]):
-            cv2.putText(frame, 'HIT', (100,150), font, 3, (255,255,255), 2, cv2.LINE_AA)
+            score += 1
     else:
         cv2.putText(frame, 'ROUND OVER', (5,30), 
         font, 1, (255,255,255), 2, cv2.LINE_AA)
     
-    cv2.putText(frame, 'Score:' + str(int(elapsed)), 
+    cv2.putText(frame, 'Score:' + str(score), 
     (int(w*0.72),30), font, 1, (255,255,255), 1, cv2.LINE_AA)
 
     cv2.imshow('webcam', frame) 
