@@ -4,19 +4,22 @@ import time
 from random import randrange
 
 proto = "models/deploy.prototxt.txt" 
-weights = "models/res10_300x300_ssd_iter_140000.caffemodel" 
+weights = "models/res10_300x300_ssd_iter_140000.caffemodel"
 
 net = cv2.dnn.readNetFromCaffe(proto, weights) 
-cap = cv2.VideoCapture(0) 
-start = time.time() 
+cap = cv2.VideoCapture(0)
 
+start = time.time() 
 coordinates = False
-score = 0 
+score = 0
 
 def circleHit(rectX1, rectY1, rectX2, rectY2, circleWidth, circleHeight):
+    width = range(circleWidth-30, circleWidth+30) 
+    height = range(circleHeight-30, circleHeight+30) 
     xRange = range(rectX1, rectX2) 
     yRange = range(rectY1, rectY2) 
-    if((circleWidth in xRange) and (circleHeight in yRange)):
+    if( range(max(width[0],xRange[0]), min(width[-1],xRange[-1])) 
+    and range(max(height[0],yRange[0]), min(height[-1],yRange[-1]))):
         return True
 
 while True:
@@ -27,17 +30,17 @@ while True:
 
     blob = cv2.dnn.blobFromImage(frame, 1.0, (300,300), (104.0,177.0,123.0))
     net.setInput(blob)
-    faces = net.forward() 
+    faces = net.forward()
 
     for i in range(faces.shape[2]):
-            confidence = faces[0, 0, i, 2]
-            if confidence > 0.5: 
-                box = faces[0, 0, i, 3:7] * np.array([w, h, w, h])
-                (x1, y1, x2, y2) = box.astype("int")
-                face = cv2.rectangle(frame, (x1, y1), (x2, y2), (0,0,255), 3)
+        confidence = faces[0, 0, i, 2]
+        if confidence > 0.5: 
+            box = faces[0, 0, i, 3:7] * np.array([w, h, w, h])
+            (x1, y1, x2, y2) = box.astype("int")
+            face = cv2.rectangle(frame, (x1, y1), (x2, y2), (0,0,255), 3)
 
     end = time.time() 
-    elapsed = end - start 
+    elapsed = end - start
     timer = int(60 - elapsed) 
     font = cv2.FONT_HERSHEY_SIMPLEX
     if timer > 0:
@@ -57,8 +60,8 @@ while True:
     cv2.putText(frame, 'Score:' + str(score), 
     (int(w*0.72),30), font, 1, (255,255,255), 1, cv2.LINE_AA)
 
-    cv2.imshow('webcam', frame) 
-    if cv2.waitKey(1) == ord('q'): 
+    cv2.imshow('webcam', frame)
+    if cv2.waitKey(1) == ord('q'):
         break
 
 cap.release()
