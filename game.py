@@ -7,7 +7,9 @@ proto = "models/deploy.prototxt.txt"
 weights = "models/res10_300x300_ssd_iter_140000.caffemodel"
 
 net = cv2.dnn.readNetFromCaffe(proto, weights) 
-cap = cv2.VideoCapture(0) 
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW) 
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
 start = time.time() 
 coordinates = False 
