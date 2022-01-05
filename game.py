@@ -52,6 +52,7 @@ while True:
             coordinates = (randomWidth, randomHeight)
         circle = cv2.circle(frame, coordinates, 30, (0,0,255), -1) 
         if circleHit(x1, y1, x2, y2, coordinates[0], coordinates[1]):
+            coordinates = False
             score += 1
     else:
         cv2.putText(frame, 'ROUND OVER', (5,30), 
