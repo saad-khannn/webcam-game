@@ -7,17 +7,17 @@ A game made using Python and OpenCV. This game uses the user's webcam and utiliz
 * [Python 3](https://www.python.org/downloads/)
 * OpenCV
 
-Once you have Python 3 installed on your machine, install OpenCV by running the following command: ```pip install opencv-python```. This will install ```numpy``` as well.
+Once you have Python 3 installed on your machine, install OpenCV by running the following command: ```pip install opencv-python```. This will install NumPy as well.
 
 If you have both Python 2 and Python 3 on your machine, use ```pip3 install opencv-python``` instead. 
 
 ## Install
-There are 2 ways for you to get Webcam Game on your machine: with [Git](https://git-scm.com/downloads) and without Git. 
+There are 2 ways for you to install Webcam Game on your machine: [Git Bash](https://git-scm.com/downloads) or ZIP Download.
 
-### With Git
+### Git Bash
 Clone the repository by running the following command: ```git clone https://github.com/saad-khannn/webcam-game.git```
 
-### Without Git
+### ZIP Download
 1. Click the green "Code" dropdown button at the top of this page
 2. Click "Download ZIP"
 3. Unzip the folder 
