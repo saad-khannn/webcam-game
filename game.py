@@ -66,7 +66,7 @@ while True:
     #show score with normal weight when round is ongoing
     cv2.putText(frame, 'Score:' + str(score), (int(width * 0.74), 30), font, 1, (255, 255, 255), 1, cv2.LINE_AA)
 
-    cv2.imshow('webcam', frame) #show webcam window
+    cv2.imshow('Webcam Game', frame) #show webcam window
     if cv2.waitKey(1) == ord('q'): #press 'q' to close window/game
         break
 
