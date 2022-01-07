@@ -1,6 +1,6 @@
 # Webcam Game
 
-A game made using Python and OpenCV which uses the user's webcam utilizes face detection. The user's goal is to use their face detection square to collect as many randomly spawning circles as they can within a 1-minute round.
+A game made using Python and OpenCV which uses the user's webcam and utilizes face detection. The user's goal is to use their face detection square to collect as many randomly spawning circles as they can within a 1-minute round.
 
 ## Prerequisites
 * [Python 3](https://www.python.org/downloads/)
@@ -45,7 +45,7 @@ There are 4 key features of the Webcam Game.
 3. The timer 
 4. The score
 
-The face detection square will be shown as long as your face is visible to the webcam and detected by the game. Move your head and/or body to move your face detection box and collect as many circles as you can before the round ends. <br/>
+The face detection square will be shown as long as your face is visible to the webcam and detected by the game. Move your head and/or body to move your face detection square and collect as many circles as you can before the round ends. <br/>
 The red circle spawns at a random position at the beginning of every round. Every time you collect a circle, a new circle will spawn at another random position. <br/>
 The timer shows how many seconds are left in the round. Each round lasts 60 seconds. <br/>
 The score shows the number of circles you have collected in the round. <br/>
