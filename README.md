@@ -1,6 +1,6 @@
 # Webcam Game
 
-A game made using Python and OpenCV which uses the user's webcam and utilizes face detection. The user's goal is to use their face detection square to collect as many randomly spawning circles as they can within a 1-minute round.
+A game made using Python and OpenCV which uses the user's webcam and utilizes face detection. The user's goal is to use their face detection square to collect as many randomly spawning circles as they can within 1 minute.
 
 ## Prerequisites
 * [Python 3](https://www.python.org/downloads/)
