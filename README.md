@@ -38,6 +38,9 @@ Open the Terminal and run ```python3 game_mac.py```
   5. Run ```python3 game_mac.py``` one more time and this should start the game
 
 ## Instructions
+
+### A video of one round of Webcam Game is available [here](https://youtu.be/Kb2Tw2OYEjU)
+
 There are 4 key features of the Webcam Game.
 
 1. The face detection square
